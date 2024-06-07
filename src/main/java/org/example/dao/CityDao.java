@@ -87,6 +87,8 @@ public class CityDao {
     public User findUserById(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(User.class, id);
     }
+
+    // тестирование того, как работают запросы
     public List<City> zpr(String name){
         String st = "from City where name = " + name;
         Query query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from City where name = :cityName");
@@ -94,8 +96,30 @@ public class CityDao {
         return query.list();
     }
 
+    // метод, создающий индексы
     public void createIndex() throws SQLException {
         PreparedStatement preparedStatement = this.connection.prepareStatement("CREATE INDEX new_index ON city(id)");
         preparedStatement.executeUpdate();
+        preparedStatement = this.connection.prepareStatement("CREATE INDEX climate_ind ON city(climate);");
+        preparedStatement.executeUpdate();
+        preparedStatement = this.connection.prepareStatement("CREATE INDEX government_ind ON city(government);");
+        preparedStatement.executeUpdate();
+        preparedStatement = this.connection.prepareStatement("CREATE INDEX standard_ind ON city(standard_of_living);");
+        preparedStatement.executeUpdate();
+    }
+
+    // метод, вызывающий лайтовый SELECT
+    public void goodSelection() throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM city;");
+        preparedStatement.executeQuery();
+    }
+
+
+    // метод, вызывающий сложный SELECT
+    public void goodGoodSelection() throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("\n" +
+                "\n" +
+                "SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM city WHERE id > 0 AND climate > 0 AND government > 0) WHERE id > 0 AND climate > 0 AND government > 0) WHERE id > 0 AND standard_of_living > 0) WHERE id > 0 AND governor > 0) WHERE id > 0)) WHERE id > 0 AND climate > 0 AND government > 0) WHERE id > 0 AND climate > 0 AND government > 0) WHERE id > 0) WHERE id > 0) WHERE id > 0);\n\n");
+        preparedStatement.executeQuery();
     }
 }

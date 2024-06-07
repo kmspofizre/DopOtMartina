@@ -3,7 +3,7 @@ package org.example;
 
 import org.example.models.*;
 import org.example.services.CityService;
-import org.example.services.UserService;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,8 +30,17 @@ public class Main {
         citiesList.add("City of Sins");
         citiesList.add("CitCity");
         citiesList.add("Night City");
-        Random randomizer = new Random();
+        //addCities(cityService, citiesList);
+        cityService.goodSelection();
+        cityService.goodGoodSelection();
 
+
+
+
+    }
+    // следующий метод добавляет города
+    public static void addCities(CityService cityService, List<String> citiesList){
+        Random randomizer = new Random();
         for (int i = 0; i < 10000; i++){
             String cityName = citiesList.get(randomizer.nextInt(citiesList.size()));
             Climate climate = cityService.findClimateById(ThreadLocalRandom.current().nextInt(1, 4 + 1));
@@ -41,7 +50,7 @@ public class Main {
             User user = cityService.findUserById(ThreadLocalRandom.current().nextInt(6, 12 + 1));
             Human governor = cityService.findHumanById(ThreadLocalRandom.current().nextInt(1, 11 + 1));
             City city = new City(cityName, 35, LocalDate.now(),
-                            33, 54.5);
+                    33, 54.5);
 
 
             city.setClimate(climate);
@@ -53,24 +62,6 @@ public class Main {
             //cityService.updateCity(city);
             cityService.saveCity(city);
         }
-
-
-
-        //
-
-        //
-        //UserService userService = new UserService();
-        //System.out.println(userService.findAutoById(2));
-        //User user = new User("Masha",26);
-        //userService.saveUser(user);
-        //Auto ferrari = new Auto("Ferrari", "red");
-        //user.addAuto(ferrari);
-        //Auto ford = new Auto("Ford", "black");
-        //ford.setUser(user);
-        //user.addAuto(ford);
-        //userService.updateUser(user);
-        //user.setName("Sasha");
-        //userService.updateUser(user);
-        //userService.deleteUser(user);
     }
+
 }

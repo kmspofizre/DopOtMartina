@@ -62,4 +62,23 @@ public class CityService {
     public void createIndex() throws SQLException {
         cityDao.createIndex();
     }
+
+    // лайтовый селект, нужен был, чтобы проверить, как работает время
+    public void goodSelection() throws SQLException {
+        long time = System.currentTimeMillis();
+        cityDao.goodSelection();
+        System.out.println("goodSelection time: " + (System.currentTimeMillis() - time));
+    }
+
+    // следующий метод вызывает большой SELECT, если время превышает заданное,
+    // то добавляются индексы и SELECT вызывается заново для проверки времени
+    public void goodGoodSelection() throws SQLException {
+        long time = System.currentTimeMillis();
+        cityDao.goodGoodSelection();
+        System.out.println("goodGoodSelection time: " + (System.currentTimeMillis() - time));
+        if ((System.currentTimeMillis() - time) > 750) {
+            createIndex();
+            goodGoodSelection();
+        }
+    }
 }
