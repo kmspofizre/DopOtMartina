@@ -6,12 +6,17 @@ import org.example.services.CityService;
 import org.example.services.UserService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) {
         CityService cityService = new CityService();
         System.out.println(cityService.findCity(2));
+        List<City> cityList = cityService.zpr("TragicCity");
+        for (City city : cityList){
+            System.out.println(city);
+        }
         //Coordinate coordinates = new Coordinate(23, 32);
 
 

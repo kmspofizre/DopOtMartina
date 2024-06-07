@@ -3,9 +3,13 @@ package org.example.dao;
 
 import org.example.models.*;
 import org.example.utils.HibernateSessionFactoryUtil;
+import org.hibernate.QueryException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import java.util.List;
+
 public class CityDao {
     public City findById(long id){
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(City.class, id);
@@ -62,5 +66,11 @@ public class CityDao {
 
     public User findUserById(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(User.class, id);
+    }
+    public List<City> zpr(String name){
+        String st = "from City where name = " + name;
+        Query query = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from City where name = :cityName");
+        query.setParameter("cityName", name);
+        return query.list();
     }
 }

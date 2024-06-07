@@ -53,4 +53,7 @@ public class CityService {
     public User findUserById(int id){
         return cityDao.findUserById(id);
     }
+    public List<City> zpr(String name){
+        return cityDao.zpr(name);
+    }
 }
