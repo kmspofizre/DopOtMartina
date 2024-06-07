@@ -3,12 +3,14 @@ package org.example.services;
 import org.example.dao.CityDao;
 import org.example.models.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CityService {
     private CityDao cityDao = new CityDao();
 
-    public CityService(){}
+    public CityService() throws SQLException, IOException {}
 
     public City findCity(long id){
         return cityDao.findById(id);
@@ -55,5 +57,9 @@ public class CityService {
     }
     public List<City> zpr(String name){
         return cityDao.zpr(name);
+    }
+
+    public void createIndex() throws SQLException {
+        cityDao.createIndex();
     }
 }

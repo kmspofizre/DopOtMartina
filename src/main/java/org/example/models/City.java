@@ -55,20 +55,13 @@ public class City {
 
     public City(){}
 
-    public City(String name, Coordinate coordinate, int area,
-                LocalDate date, int cityPopulation, double metersAboveSeaLevel, Climate climate,
-                Government government, StandardOfLiving standardOfLiving, Human governor, User user){
+    public City(String name, int area,
+                LocalDate date, int cityPopulation, double metersAboveSeaLevel){
         this.name = name;
-        this.coordinate = coordinate;
         this.area = area;
         this.date = date;
         this.cityPopulation = cityPopulation;
         this.metersAboveSeaLevel = metersAboveSeaLevel;
-        this.climate = climate;
-        this.government = government;
-        this.standardOfLiving = standardOfLiving;
-        this.governor = governor;
-        this.user = user;
     }
 
     public void setId(long id) {
